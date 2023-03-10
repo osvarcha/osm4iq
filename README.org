@@ -12,12 +12,12 @@ La documentación y el codigo esta hecho en [[https://orgmode.org][org-mode]] tan
 escribir las funciones de python como para autodocumentarlas a medida
 que avanzo.
 
-#+begin_comment
+#+begin_quote
 [[https://orgmode.org][org-mode]] es una herramientas fantastica de [[https://www.gnu.org/software/emacs/][emacs]] es mas que un formato
 de texto plano, se usa para crar documentos, notebooks, agenda, notas,
 listas en fin es hackeable, tanto asi que todo el codigo se hara en
 este notebook que sera una autodocumentación.
-#+end_comment
+#+end_quote
 
 * Macros
 Primero una macro basica que viene con Quickstart de xlwings
