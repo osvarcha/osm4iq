@@ -1,0 +1,87 @@
+#+title: OSM4IQ
+#+author: osvarcha
+
+osm4iq singifica "Osvarcha's macros for Iq" que traducido es "Las
+macros de osvarcha para IQ" que tiene como objetivo crear UDF's
+(Funciones definidas por el Usuario) con [[https://www.xlwings.org/][xlwings]], una biblioteca que
+enlaza python con excel, tanto para hacer macros como UDF's solo para
+windows.
+
+* Empezando
+La documentación y el codigo esta hecho en [[https://orgmode.org][org-mode]] tanto para
+escribir las funciones de python como para autodocumentarlas a medida
+que avanzo.
+
+#+begin_comment
+[[https://orgmode.org][org-mode]] es una herramientas fantastica de [[https://www.gnu.org/software/emacs/][emacs]] es mas que un formato
+de texto plano, se usa para crar documentos, notebooks, agenda, notas,
+listas en fin es hackeable, tanto asi que todo el codigo se hara en
+este notebook que sera una autodocumentación.
+#+end_comment
+
+* Macros
+Primero una macro basica que viene con Quickstart de xlwings
+#+begin_src python :session macros-main :results output :tangle package\macros\main.py
+import xlwings as xw
+
+def main():
+    wb = xw.Book.caller()
+    sheet = wb.sheets[0]
+    if sheet["A1"].value == "Hello xlwings!":
+        sheet["A1"].value = "Bye xlwings!"
+    else:
+        sheet["A1"].value = "Hello xlwings!"
+#+end_src
+
+#+RESULTS:
+
+* UDF's
+Vamos a definir las UDF's
+
+** Funciones demo
+Son funciones para saludar
+#+begin_src python :session udf-demo :results output :tangle package\funciones\demo.py
+import xlwings as xw
+
+@xw.func
+def hola_mundo():
+    """Hola mundo p papa"""
+    return "hola Mundo"
+
+@xw.func
+def hello(name):
+    return f"Hello {name}!"
+#+end_src
+
+** Funciones num
+Funciones numericas
+
+#+begin_src python :session udf-num :results output :tangle package\funciones\num.py
+import xlwings as xw
+
+@xw.func
+def double_sum(x, y):
+    """Returns twice the sum of the two arguments"""
+    return 2 * (x + y)
+#+end_src
+
+* Archivo final
+
+#+begin_src python :tangle osm4iq.py
+import xlwings as xw
+
+# Funciones a importar
+from package.macros.main import main
+from package.funciones.demo import hello, hola_mundo
+from package.funciones.num import double_sum
+
+if __name__ == "__main__":
+    xw.Book("osm4iq.xlsm").set_mock_caller()
+    main()
+#+end_src
+
+#+RESULTS:
+
+
+
+
