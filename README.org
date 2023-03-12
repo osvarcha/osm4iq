@@ -58,7 +58,7 @@ Vamos a definir las UDF's
 
 ** Funciones demo
 Son funciones para saludar
-#+begin_src python :session udf-demo :results output :tangle package\funciones\demo.py
+#+begin_src python :session udf-demo :results output :tangle package\udf\demo.py
 import xlwings as xw
 
 @xw.func
@@ -69,7 +69,7 @@ def hello(name):
 ** Funciones num
 Funciones numericas
 
-#+begin_src python :session udf-num :results output :tangle package\funciones\num.py
+#+begin_src python :session udf-num :results output :tangle package\udf\num.py
 import xlwings as xw
 
 @xw.func
@@ -90,6 +90,26 @@ paqueterias como añadir [[https://www.sympy.org/es/][SymPy]] para calculo simbol
 la cinta de opciones, asi como [[https://numpy.org/][numpy]] para calculo matematico, y
 algunos complementos se optimizaran con [[https://numba.pydata.org_quot][numba]].
 #+end_quote
+
+*** TODO Funciones necesarias para IQ
+Estas funciones son necesarias para todo IQ pues son ecuaciones matematicas
+representadas en funciones.
+
+**** TODO Interporlación
+La Interpolación lineal es una tecnica rapida para calculos que son cercanos
+especialmente si se usa en tablas porque son datos cercanos y con poco error
+experimental. La siguiente ecuación representa representa la función a crear.
+
+\begin{equation}
+f_1\left ( x \right ) = f\left ( x_0 \right ) + \frac{f\left ( x_1 \right ) -
+f\left ( x_0 \right )}{x_1 - x_0}\left ( x - x_0 \right )
+\end{equation}
+
+#+begin_src python
+def inter_lineal(x, X, Y):
+    """Interporlación lineal con dos vectores de datos y el valor a interpolar"""
+    pass
+#+end_src
 
 *** TODO Calculos
 
