@@ -62,11 +62,6 @@ Son funciones para saludar
 import xlwings as xw
 
 @xw.func
-def hola_mundo():
-    """Hola mundo p papa"""
-    return "hola Mundo"
-
-@xw.func
 def hello(name):
     return f"Hello {name}!"
 #+end_src
@@ -82,6 +77,51 @@ def double_sum(x, y):
     """Returns twice the sum of the two arguments"""
     return 2 * (x + y)
 #+end_src
+
+** TODO Complemento IQ
+Este proyecto inicio porque queria reemplazar el complemento de mi
+profesor de termodinamica pero sin VBA.
+
+#+begin_quote
+Talvez nunca complete esta lista porque solo utilizare algunas
+funciones que utilice en el curso, pero mi objetivo de este
+complemento es que sea mas utilice las bondades de python con sus 
+paqueterias como añadir [[https://www.sympy.org/es/][SymPy]] para calculo simbolico ejecutados desde
+la cinta de opciones, asi como [[https://numpy.org/][numpy]] para calculo matematico, y
+algunos complementos se optimizaran con [[https://numba.pydata.org_quot][numba]].
+*** TODO Calculos
+
+*** TODO Coeficientes de actividad
+
+*** TODO Coeficientes de Fugacidad en Mezcla
+
+*** TODO Energias de Exceso
+
+*** TODO Energia Interna Residual
+
+*** TODO Energia  Libre de Gibbs Residual
+
+*** TODO Entalpía Residual
+
+*** TODO Entropía Residual
+
+*** TODO Factor de Compresibilidad
+
+*** TODO Operaciones Unitarias
+
+*** TODO Parámetros de EoS
+
+*** TODO Presión
+
+*** TODO Presión de Vapor
+
+*** TODO Propiedades Fisicoquímicas y de Transporte
+
+*** TODO Psicrometría
+
+*** TODO Trabajo de Expansión/Comprensión
+
+*** TODO Volumen Molar
 
 * Archivo final
 
