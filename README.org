@@ -89,6 +89,8 @@ complemento es que sea mas utilice las bondades de python con sus
 paqueterias como añadir [[https://www.sympy.org/es/][SymPy]] para calculo simbolico ejecutados desde
 la cinta de opciones, asi como [[https://numpy.org/][numpy]] para calculo matematico, y
 algunos complementos se optimizaran con [[https://numba.pydata.org_quot][numba]].
+#+end_quote
+
 *** TODO Calculos
 
 *** TODO Coeficientes de actividad
