@@ -131,10 +131,10 @@ La Interpolación lineal es una tecnica rapida para calculos que son cercanos
 especialmente si se usa en tablas porque son datos cercanos y con poco error
 experimental. La siguiente ecuación representa representa la función a crear.
 
-\begin{equation}
+$$
 f_1\left ( x \right ) = f\left ( x_0 \right ) + \frac{f\left ( x_1 \right ) -
 f\left ( x_0 \right )}{x_1 - x_0}\left ( x - x_0 \right )
-\end{equation}
+$$
 
 #+begin_src python
 def inter_lineal(x, X, Y):
