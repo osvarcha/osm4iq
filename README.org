@@ -1,6 +1,6 @@
 #+title: OSM4IQ
 #+author: osvarcha
-#+OPTIONS: toc:nil
+
 #+OPTIONS: tex:t
 #+EXPORT_FILE_NAME: README
 
