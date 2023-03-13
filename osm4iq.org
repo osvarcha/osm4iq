@@ -2,6 +2,7 @@
 #+author: osvarcha
 #+OPTIONS: toc:nil
 #+OPTIONS: tex:t
+#+EXPORT_FILE_NAME: README
 
 osm4iq singifica "Osvarcha's macros for Iq" que traducido es "Las
 macros de osvarcha para IQ" que tiene como objetivo crear UDF's
