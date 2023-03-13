@@ -1,3 +1,8 @@
+<head>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+
 osm4iq singifica "Osvarcha's macros for Iq" que traducido es "Las
 macros de osvarcha para IQ" que tiene como objetivo crear UDF's
 (Funciones definidas por el Usuario) con [xlwings](https://www.xlwings.org/), una biblioteca que
