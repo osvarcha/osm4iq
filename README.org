@@ -1,6 +1,6 @@
 #+title: OSM4IQ
 #+author: osvarcha
-
+#+OPTIONS: toc:nil
 #+OPTIONS: tex:t
 #+EXPORT_FILE_NAME: README
 
@@ -123,26 +123,109 @@ algunos complementos se optimizaran con [[https://numba.pydata.org_quot][numba]]
 #+end_quote
 
 *** TODO Funciones necesarias para IQ
-Estas funciones son necesarias para todo IQ pues son ecuaciones matematicas
-representadas en funciones.
+Son funciones basicas, necsarias para los otros complementos IQ
 
-**** TODO Interporlación
-La Interpolación lineal es una tecnica rapida para calculos que son cercanos
-especialmente si se usa en tablas porque son datos cercanos y con poco error
-experimental. La siguiente ecuación representa representa la función a crear.
+**** DONE Indice mayor mas cercano
+Una función comodin que encontrada el indice del mayor mas cercano de una lista
+ordenada.
 
-$$
-f_1\left ( x \right ) = f\left ( x_0 \right ) + \frac{f\left ( x_1 \right ) -
-f\left ( x_0 \right )}{x_1 - x_0}\left ( x - x_0 \right )
-$$
-
-#+begin_src python
-def inter_lineal(x, X, Y):
-    """Interporlación lineal con dos vectores de datos y el valor a interpolar"""
-    pass
+#+begin_src python :results silent :tangle package\udf\iq\tools.py
+def indice_mayor_cercano(dato, lista):
+    """Devuelve el indice del dato mayor mas cercano de 
+    una lista ordenada
+    """
+    mayores = filter(lambda x: x > dato, lista)
+    if mayores:
+        return lista.index(next(mayores))
+    else:
+        return len(lista) - 1
 #+end_src
 
 *** TODO Calculos
+Funciones de IQ para calculos, mas que todos metodos de interporlación, ordenar,
+extrapolación y demas...
+
+#+begin_src python :results silent :tangle package\udf\iq\calculos.py
+from tools import indice_mayor_cercano
+#+end_src
+**** DONE Ordenar Datos
+Ordena los datos representados en dos vectores $X$ y $Y$, los ordena tanto de
+forma ascedente como descendente segun el vector $X$
+
+#+begin_src python :results silent :tangle package\udf\iq\calculos.py
+def ordenar_datos(X, Y, ascendente=True):
+    """Ordena de forma ascendente o descendente:
+    Ordena el vector X de forma ascendente o descendente y al mismo tiempo
+    reordena el vector Y de acuerdo a la nueva posición de los datos del vector
+    'X'
+    
+    Args:
+    X (list): Vector de datos x
+    Y (list): Vector de datos y
+    ascendente (bool, optional): Si es True, los datos serán ordenados de forma
+    ascendente.  Si es False, los datos serán ordenados de forma
+    descendente. Por defecto es True.
+    
+    Returns:
+    X_ordenado (list): Vector X ordenado
+    Y_ordenado (list): Vector Y ordenado
+    """
+    # Creamos una lista de tuplas
+    datos = list(zip(X,Y))
+
+    # Ordenamos la lista por el valor de x
+    datos_ordenados = sorted(datos, key=lambda t: t[0], reverse=not ascendente)
+    
+    # separamos los datos ordenados en dos vectores X_ordenado e Y_ordenado
+    X_ordenado = list(map(lambda t: t[0], datos_ordenados))
+    Y_ordenado = list(map(lambda t: t[1], datos_ordenados))
+    
+    return X_ordenado, Y_ordenado
+#+end_src
+
+**** DONE Interpolación Lineal
+Devuelve el valor interpolado de $y$, para un $x$, a partir de datos tabulados
+$X$ y $Y$, ordenados en $X$, mediante una interpolación lineal.
+
+#+begin_quote
+Esta función necesita la función *ordenar datos* de tools.py
+#+end_quote
+
+| argumento | Regimen     | Tipo    | Descripción                  |
+|-----------+-------------+---------+------------------------------|
+| $x$       | Obligatorio | Escalar | Valor del punto a interpolar |
+| $X$       | Obligatorio | Vector  | Datos $X$.                   |
+| $Y$       | Obligatorio | Vector  | Datis $Y$.                   |
+
+#+begin_src python :results silent :tangle package\udf\iq\calculos.py
+def inter_lineal(x, X, Y):
+    """Interporlación lineal para hallar el punto x con dos vectores X y Y
+
+    El vector 'X' contiene los datos de la variable independiente y el vector
+    'Y' contiene los datos de la variable dependiente
+
+    """
+    
+    # ORdenamos los datos
+    X_ordenado, Y_ordenado = ordenar_ascendente(X,Y)
+    
+    def eq_int_lineal(x, x_0, y_0, x_1, y_1):
+        """Ecuación de la interpolación lineal simple
+        """
+        return y_0 + (y_1-y_0)/(x_1-x_0) * (x-x_0)
+    
+    # Vemos si "x" esta en el vector X
+    if (lambda x, X: x in X)(x, X):
+        i = X.index(x)
+        return Y[i]
+    
+    else:
+        # Si no esta sacamos el indice mayor cercano
+        i = indice_mayor_cercano(x, X)
+        # con el indice utilizamos la ecución
+        y = eq_int_lineal(x, X[i-1], Y[i-1], X[i], Y[i])
+        return y
+#+end_src
 
 *** TODO Coeficientes de actividad
 
