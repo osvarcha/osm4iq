@@ -1,3 +1,6 @@
+from functools import reduce
+
+# funciones anexas
 from tools import indice_mayor_cercano
 
 def ordenar_datos(X, Y, ascendente=True):
@@ -56,3 +59,49 @@ def inter_lineal(x, X, Y):
         # con el indice utilizamos la ecución
         y = eq_int_lineal(x, X[i-1], Y[i-1], X[i], Y[i])
         return y
+
+def inter_polinewton(x, X, Y):
+    """Interporlación mediante el polinomio de Newton por diferencias
+    divididas
+    """
+    # ordenando datos
+    X, Y = ordenar_ascendente(X,Y)
+    
+    # Tamaño del vector
+    n = len(X)
+    
+    # Función de diferencia divididas
+    def diff_div(i, j):
+        if i == j:
+            return Y[i]
+        elif j - i == 1:
+            return (Y[j] - Y[i]) / (X[j] - X[i])
+        else:
+            return (diff_div(i+1, j) - diff_div(i, j-1)) / (X[j] - X[i])
+
+    # Calcular las diferencias divididas 
+    diferencias_divididas = list(map(lambda i: diff_div(i, n-1, X, Y), range(n)))
+
+    
+    # Calcular el polinomio de interpolación
+    def polinomio(i):
+        
+        # funciones lambda adicionales para separar los cálculos
+        x_minus_X = lambda k: x - X[k]
+        multiplicacion_terminos = lambda lista: reduce(lambda a, b: a*b, lista)
+        
+        #terminos = [
+        #    (diferencias_divididas[j] if j == 0 else
+        #     reduce(lambda a, b: a*b, list(map(lambda k: x_minus_X(k), range(j)))) * diferencias_divididas[j])
+        #    for j in range(i+1)
+        #]
+        
+        terminos = list(
+            map(lambda j: diferencias_divididas[j] if j == 0 else
+                multiplicacion_terminos(list(map(x_minus_X, range(j)))) * diferencias_divididas[j],
+                range(i+1))
+        )
+        
+        return reduce(lambda a, b: a+b, terminos)
+    
+    return polinomio(n-1)
